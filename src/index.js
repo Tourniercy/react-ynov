@@ -3,6 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import "bootstrap/dist/css/bootstrap.min.css";
+import {users, articles} from './db'
+
+
+let value = localStorage.getItem('ls');
+if (!value)
+{
+    localStorage.setItem('ls', true);
+    localStorage.setItem('articles', JSON.stringify(articles));
+    localStorage.setItem('users', JSON.stringify(users));
+}
+
+
+
 
 ReactDOM.render(
   <React.StrictMode>
