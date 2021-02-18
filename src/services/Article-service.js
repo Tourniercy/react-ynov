@@ -2,7 +2,7 @@ import {articles} from "../db";
 
 export const getArticles = () =>
     new Promise((resolve, reject) => {
-        if (!articles) {
+        if (!localStorage.getItem('articles')) {
             return setTimeout(
                 () => reject(new Error('Articles not found')),
                 250

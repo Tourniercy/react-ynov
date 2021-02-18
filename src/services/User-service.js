@@ -1,31 +1,27 @@
 class UserService {
     isLogged = false
-
     login({email, password}){
-        return new Promise((res,rej) => {
-            setTimeout(() => {
-                this.isLogged = true
-                res({
-                    name: "Rémi"
-                })
-            },1000)
-        })
-    }
+        return new Promise((resolve, reject) => {
+            if (!localStorage.getItem('users')) {
+                return setTimeout(
+                    () => reject(new Error('users not found')),
+                    250
+                );
+            }
+            let users = JSON.parse(localStorage.getItem('users'));
+            users = Object.values(users)
 
-    getMe(){
-        return new Promise((res,rej) => {
-            setTimeout(() => {
-                if(this.isLogged){
-                    res({
-                        name: "Rémi"
-                    })
-                } else {
-                    rej({
-                        err: "You're not logged"
-                    })
-                }
-            },1000)
-        })
+            const user = users.find(a => a.email === email)
+            if (user.password !== password) {
+                return setTimeout(
+                    () => reject(new Error('Bad password')),
+                    250
+                );
+            }
+            this.isLogged = true;
+            localStorage.setItem('user',JSON.stringify(user));
+            setTimeout(() => resolve(user), 250);
+        });
     }
 
     logout(){

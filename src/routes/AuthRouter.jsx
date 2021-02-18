@@ -4,10 +4,9 @@ import AuthPage from "../pages/auth/AuthPage";
 import {userService} from "../services";
 
 const AuthRouter = () => {
-  console.log('auth router')
   if(userService.isLogged){
     return (
-      <Redirect to={"/"} />
+      <Redirect to={"/blog"} />
     )
   }
   return (
